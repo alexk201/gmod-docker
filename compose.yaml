@@ -1,0 +1,14 @@
+services:
+  gmod:
+    image: gmod
+    tty: true
+    ports:
+      - 27015:27015/tcp
+      - 27015:27015/udp
+      - 27005:27005/udp
+    volumes:
+      - addons:/home/steam/gmod/garrysmod/cache/srcds
+
+volumes:
+  addons:
+      
