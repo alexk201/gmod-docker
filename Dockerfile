@@ -5,7 +5,7 @@ EXPOSE 27015/udp
 EXPOSE 27005/udp
 
 USER root
-RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libtinfo5:i386 python3 && apt-get clean
+RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libtinfo5:i386 python3 tini && apt-get clean
 USER steam
 
 RUN ./steamcmd.sh +force_install_dir /home/steam/gmod +login anonymous +app_update 4020 validate +quit
@@ -21,4 +21,4 @@ RUN touch /home/steam/gmod/garrysmod/sv.db
 RUN mkdir -p /home/steam/gmod/steam_cache/content && mkdir -p /home/steam/gmod/garrysmod/cache/srcds
 
 # START THE SERVER
-ENTRYPOINT [ "/home/steam/gmod/srcds_run" ]
+ENTRYPOINT [ "tini", "--", "bash", "/home/steam/gmod/srcds_run" ]
