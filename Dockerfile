@@ -1,5 +1,7 @@
 FROM docker.io/cm2network/steamcmd:steam-bookworm
 
+ENV LD_LIBRARY_PATH=/home/steam/gmod/bin
+
 EXPOSE 27015/tcp
 EXPOSE 27015/udp
 EXPOSE 27005/udp
@@ -21,4 +23,4 @@ RUN touch /home/steam/gmod/garrysmod/sv.db
 RUN mkdir -p /home/steam/gmod/steam_cache/content && mkdir -p /home/steam/gmod/garrysmod/cache/srcds
 
 # START THE SERVER
-ENTRYPOINT [ "tini", "--", "bash", "/home/steam/gmod/srcds_run" ]
+ENTRYPOINT [ "tini", "--", "/home/steam/gmod/srcds_linux" ]
