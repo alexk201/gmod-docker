@@ -14,7 +14,7 @@ RUN ./steamcmd.sh +force_install_dir /home/steam/gmod +login anonymous +app_upda
 RUN ./steamcmd.sh +force_install_dir /home/steam/css +login anonymous +app_update 232330 validate +quit
 
 # SET GMOD MOUNT CONTENT
-RUN echo '"mountcfg" {"cstrike" "/home/steam/css"}' > /home/steam/gmod/garrysmod/cfg/mount.cfg
+RUN echo '"mountcfg" {"cstrike" "/home/steam/css/cstrike"}' > /home/steam/gmod/garrysmod/cfg/mount.cfg
 
 # CREATE DATABASE FILE
 RUN touch /home/steam/gmod/garrysmod/sv.db
