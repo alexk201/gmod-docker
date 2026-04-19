@@ -1,4 +1,4 @@
-FROM docker.io/cm2network/steamcmd:steam-bookworm
+FROM docker.io/cm2network/steamcmd:steam-trixie
 
 ENV LD_LIBRARY_PATH=/home/steam/gmod/bin
 
@@ -7,9 +7,14 @@ EXPOSE 27015/udp
 EXPOSE 27005/udp
 
 USER root
-RUN dpkg --add-architecture i386 && apt-get update && apt-get install -y libtinfo5:i386 python3 tini && apt-get clean
+
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update && apt-get install -y python3 tini && apt-get autoremove -y && apt-get clean
+ENV DEBIAN_FRONTEND=dialog
+
 USER steam
 
+RUN ./steamcmd.sh +login anonymous +quit
 RUN ./steamcmd.sh +force_install_dir /home/steam/gmod +login anonymous +app_update 4020 validate +quit
 RUN ./steamcmd.sh +force_install_dir /home/steam/css +login anonymous +app_update 232330 validate +quit
 
